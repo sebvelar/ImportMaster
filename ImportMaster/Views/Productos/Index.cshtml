@@ -4,31 +4,29 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Productos</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<button onclick="location.href='@Url.Action("Create")'" type="button" class="btn btn-primary my-3">Añadir un producto</button>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Nombre)
+                Producto
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Descripcion)
+                Descripción
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Existencias)
+                Stock
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Precio)
+                Precio
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PorcentajeImpuesto)
+               Impuestos
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.OrdenCompraId)
+                Orden de Compra
             </th>
             <th></th>
         </tr>
@@ -46,18 +44,26 @@
                 @Html.DisplayFor(modelItem => item.Existencias)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Precio)
+                    ₡@Html.DisplayFor(modelItem => item.Precio)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PorcentajeImpuesto)
+                @Html.DisplayFor(modelItem => item.PorcentajeImpuesto)% 
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.OrdenCompraId)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a class="btn btn-warning btn-sm w-25" asp-action="Edit" asp-route-id="@item.OrdenCompraId" title="Edit">
+                    <i class="fas fa-edit"></i>
+                </a>
+
+                    <a class="btn btn-info btn-sm w-25" asp-action="Details" asp-route-id="@item.OrdenCompraId" title="Details">
+                    <i class="fas fa-info-circle"></i>
+                </a>
+
+                    <a class="btn btn-danger btn-sm w-25" asp-action="Delete" asp-route-id="@item.OrdenCompraId" title="Delete">
+                    <i class="fas fa-trash"></i>
+                </a>
             </td>
         </tr>
 }
