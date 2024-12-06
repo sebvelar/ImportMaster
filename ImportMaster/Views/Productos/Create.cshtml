@@ -4,55 +4,48 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>Producto</h4>
+<h1>Añadir un producto</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Nombre" class="control-label"></label>
+                <label asp-for="Nombre" class="control-label">Producto</label>
                 <input asp-for="Nombre" class="form-control" />
                 <span asp-validation-for="Nombre" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Descripcion" class="control-label"></label>
+                <label asp-for="Descripcion" class="control-label">Descripción</label>
                 <input asp-for="Descripcion" class="form-control" />
                 <span asp-validation-for="Descripcion" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Existencias" class="control-label"></label>
+                <label asp-for="Existencias" class="control-label">Unidades disponibles</label>
                 <input asp-for="Existencias" class="form-control" />
                 <span asp-validation-for="Existencias" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Precio" class="control-label"></label>
-                <input asp-for="Precio" class="form-control" />
+                <label asp-for="Precio" class="control-label">Precio</label>
+                <input asp-for="Precio" class="form-control"  type="number"/>
                 <span asp-validation-for="Precio" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PorcentajeImpuesto" class="control-label"></label>
+                <label asp-for="PorcentajeImpuesto" class="control-label">Impuesto(Porcentaje)</label>
                 <input asp-for="PorcentajeImpuesto" class="form-control" />
                 <span asp-validation-for="PorcentajeImpuesto" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="OrdenCompraId" class="control-label"></label>
-                <input asp-for="OrdenCompraId" class="form-control" />
-                <span asp-validation-for="OrdenCompraId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+
+            <div class="form-group my-4">
+                <a class="btn btn-secondary w-25" title="Go Back" asp-action="Index">Volver</a>
+                <input type="submit" value="Añadir" class="btn btn-primary w-25" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

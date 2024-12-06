@@ -25,9 +25,6 @@
             <th>
                Impuestos
             </th>
-            <th>
-                Orden de Compra
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -50,18 +47,15 @@
                 @Html.DisplayFor(modelItem => item.PorcentajeImpuesto)% 
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.OrdenCompraId)
-            </td>
-            <td>
-                    <a class="btn btn-warning btn-sm w-25" asp-action="Edit" asp-route-id="@item.OrdenCompraId" title="Edit">
+                    <a class="btn btn-warning btn-sm w-25" asp-action="Edit" asp-route-id="@item.Id" title="Edit">
                     <i class="fas fa-edit"></i>
                 </a>
 
-                    <a class="btn btn-info btn-sm w-25" asp-action="Details" asp-route-id="@item.OrdenCompraId" title="Details">
+                    <a class="btn btn-info btn-sm w-25" asp-action="Details" asp-route-id="@item.Id" title="Details">
                     <i class="fas fa-info-circle"></i>
                 </a>
 
-                    <a class="btn btn-danger btn-sm w-25" asp-action="Delete" asp-route-id="@item.OrdenCompraId" title="Delete">
+                    <a class="btn btn-danger btn-sm w-25" asp-action="Delete" asp-route-id="@item.Id" title="Delete">
                     <i class="fas fa-trash"></i>
                 </a>
             </td>

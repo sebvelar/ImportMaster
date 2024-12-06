@@ -12,12 +12,15 @@ namespace ImportMaster.Controllers
 {
     public class ProductosController : Controller
     {
-        private readonly ApplicationDbContext _context;
+          private readonly ApplicationDbContext _context;
+        private readonly ILogger<ProductosController> _logger;
 
-        public ProductosController(ApplicationDbContext context)
+        public ProductosController(ApplicationDbContext context, ILogger<ProductosController> logger)
         {
             _context = context;
+            _logger = logger;
         }
+
 
         // GET: Productos
         public async Task<IActionResult> Index()
@@ -58,17 +61,22 @@ namespace ImportMaster.Controllers
         {
             try
             {
+                _logger.LogInformation("Intentando añadir producto...");
+                _logger.LogInformation($"Datos del producto: {producto.Nombre}, {producto.Descripcion}, {producto.Existencias}, {producto.Precio}");
+
                 _context.Add(producto);
                 await _context.SaveChangesAsync();
+
+                _logger.LogInformation("Producto añadido exitosamente.");
                 return RedirectToAction(nameof(Index));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                _logger.LogError($"Error al añadir producto: {ex.Message}");
                 throw;
             }
-            return View(producto);
         }
+
 
         // GET: Productos/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -93,22 +101,29 @@ namespace ImportMaster.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Descripcion,Existencias,Precio,PorcentajeImpuesto,OrdenCompraId")] Producto producto)
         {
+
+
             if (id != producto.Id)
             {
+                _logger.LogWarning("IDs no coinciden. Redirigiendo a NotFound.");
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
+        
                 try
                 {
+                    _logger.LogInformation("Actualizando producto...");
                     _context.Update(producto);
                     await _context.SaveChangesAsync();
+                    _logger.LogInformation("Producto actualizado exitosamente.");
+                    return RedirectToAction(nameof(Index));
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateConcurrencyException ex)
                 {
+                    _logger.LogError($"Error de concurrencia: {ex.Message}");
                     if (!ProductoExists(producto.Id))
                     {
+                        _logger.LogWarning("Producto no existe. Redirigiendo a NotFound.");
                         return NotFound();
                     }
                     else
@@ -116,14 +131,16 @@ namespace ImportMaster.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
-            }
+     
+
             return View(producto);
         }
+
 
         // GET: Productos/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+
             if (id == null)
             {
                 return NotFound();
